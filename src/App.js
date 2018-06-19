@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Card from './components/card';
-import ProductItem from './components/product-item'
+import ProductItem from './components/product-item';
+import AddItem from './components/addItem'
+
 import './App.css';
 
 const products = [
@@ -24,6 +26,8 @@ class App extends Component {
     this.changeSubtitle = this.changeSubtitle.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onDelete = this.onDelete.bind(this);
+    this.onAdd = this.onAdd.bind(this);
+
     this.state = {
       subtitle: "this is subtitle",
       name: 'initial Name',
@@ -66,6 +70,14 @@ class App extends Component {
     return <h1>{'pippo title'}</h1>
 
   }
+  onAdd(name,price){
+    const products = this.getProducts();
+    products.push({
+      name,
+      price
+    })
+    this.setState({products})
+  }
   onDelete(name){
     console.log(name)
     const products = this.getProducts();
@@ -101,7 +113,9 @@ class App extends Component {
             )
           })
         }
-
+        <AddItem 
+          onAdd={this.onAdd}
+        />
         <div>{list.map(item => {
           return (
             <div onClick={this.clickMenu} >{item}</div>
